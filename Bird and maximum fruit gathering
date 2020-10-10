@@ -1,0 +1,36 @@
+// https://practice.geeksforgeeks.org/problems/bird-and-maximum-fruit-gathering/0
+class GFG {
+	public static void main (String[] args) throws IOException{
+		//code
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		int test=Integer.parseInt(br.readLine().trim());
+		while(test-->0)
+		{
+		    String st[]=br.readLine().trim().split("\\s+");
+		    int n=Integer.parseInt(st[0]);
+		    int k=Integer.parseInt(st[1]);
+		    st=br.readLine().trim().split("\\s+");
+		    int arr[]=new int[n];
+		    for(int i=0;i<n;i++)
+		    {
+		        arr[i]=Integer.parseInt(st[i]);
+		    }
+		    int sum=0;
+		    for(int i=0;i<k && i<n;i++)
+		        sum=(sum+arr[i])%1000000007;
+		    int max=sum;
+		    if(k>=n)
+		    {
+		        System.out.println(max);
+		        continue;
+		    }
+		    for(int i=1;i<n;i++)
+		    {
+		        sum=(sum%1000000007+arr[(n+i+k-1)%n]%1000000007-arr[i-1]%1000000007);
+		        if(sum>max)
+		            max=sum;
+		    }
+		    System.out.println(max);
+		}
+	}
+}
