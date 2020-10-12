@@ -1,0 +1,91 @@
+// https://practice.geeksforgeeks.org/problems/trapping-rain-water/0/
+// on time on space
+class GFG {
+	public static void main (String[] args) throws IOException {
+		//code
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		int test=Integer.parseInt(br.readLine().trim());
+		while(test-->0)
+		{
+
+		    int n=Integer.parseInt(br.readLine());
+		    String st[]=br.readLine().trim().split("\\s+");
+		    int arr[]=new int[n];
+		    for(int i=0;i<n;i++)
+		    {
+		        arr[i]=Integer.parseInt(st[i]);
+		    }
+		    int left[]=new int[n];
+		    int right[]=new int[n];
+		    left[0]=-1;
+		    int max=arr[0];
+		    for(int i=1;i<n;i++)
+		    {
+		        left[i]=max;
+		        if(arr[i]>max)
+		            max=arr[i];
+		    }
+		    right[n-1]=-1;
+		    max=arr[n-1];
+		    for(int i=n-2;i>=0;i--)
+		    {
+		        right[i]=max;
+		        if(arr[i]>max)
+		            max=arr[i];
+		    }
+		    max=0;
+		    for(int i=0;i<n;i++)
+		    {
+		        int mini=Math.min(left[i],right[i]);
+		        if(mini!=-1 && mini>arr[i])
+		            max+=mini-arr[i];
+		    }
+		    System.out.println(max);
+
+
+
+		}
+	}
+}
+// on time o1 space amazing soln same approach
+class GFG {
+	public static void main (String[] args) throws IOException {
+		//code
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		int test=Integer.parseInt(br.readLine().trim());
+		while(test-->0)
+		{
+
+		    int n=Integer.parseInt(br.readLine());
+		    String st[]=br.readLine().trim().split("\\s+");
+		    int a[]=new int[n];
+		    for(int i=0;i<n;i++)
+		    {
+		        a[i]=Integer.parseInt(st[i]);
+		    }
+		    int max=0,low=0,high=n-1,leftmax=0,rightmax=0;
+		    while(low<=high)
+		    {
+		        if(a[low]<a[high])
+		        {
+		            if(a[low]>leftmax)
+		                leftmax=a[low];
+		            else
+		                max+=leftmax-a[low];
+		            low++;
+		        }
+		        else
+		        {
+		            if(a[high]>rightmax)
+		                rightmax=a[high];
+		            else
+		                max+=rightmax-a[high];
+		            high--;
+		        }
+
+		    }
+		    System.out.println(max);    
+
+		}
+	}
+}
