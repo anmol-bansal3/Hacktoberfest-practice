@@ -1,0 +1,60 @@
+import java.util.*;
+class Node<K,E>
+{
+    private K key;
+    private E edge;
+    Node(K key,E edge)
+    {
+        this.key=key;
+        this.edge=edge;
+    }
+    @Override
+    public String toString()
+    {
+        return "{ endNode:" + key+" , Edge: "+edge+"}";
+    }
+}
+class Graph<K,E>
+{
+    private Map<K,LinkedList<Node<K,E>>> graph;
+    Graph()
+    {
+        graph=new HashMap<>();
+    }
+    public void addEdge(K v1,K v2,E edge)
+    {
+        if(!graph.containsKey(v1))
+            graph.put(v1,new LinkedList<Node<K,E>>());
+        graph.get(v1).add(new Node<>(v2,edge));
+    }
+    public void addUnDirectedEdge(K v1,K v2,E edge)
+    {
+        if(!graph.containsKey(v1))
+            graph.put(v1,new LinkedList<Node<K,E>>());
+        if(!graph.containsKey(v2))
+            graph.put(v2,new LinkedList<Node<K,E>>());
+        graph.get(v1).add(new Node<>(v2,edge));
+        graph.get(v2).add(new Node<>(v1,edge));
+    }
+    @Override
+    public String toString()
+    {
+        String ans="";
+        for(K key : graph.keySet())
+            System.out.println(key+" -> "+graph.get(key));
+        return ans;
+    }
+}
+public class MyClass {
+    public static void main(String args[]) {
+      Graph<String, String> g = new Graph<>();
+		
+		g.addEdge("A", "B", "Children");
+		g.addEdge("A", "C", "Brother");
+		
+		g.addEdge("B", "C", "Aunty");
+		
+		g.addUnDirectedEdge("D", "E", "None");
+		System.out.println(g);
+    }
+}
